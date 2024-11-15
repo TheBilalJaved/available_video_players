@@ -7,13 +7,13 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockAvailableVideoPlayersPlatform
     with MockPlatformInterfaceMixin
     implements AvailableVideoPlayersPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
 }
 
 void main() {
-  final AvailableVideoPlayersPlatform initialPlatform = AvailableVideoPlayersPlatform.instance;
+  final AvailableVideoPlayersPlatform initialPlatform =
+      AvailableVideoPlayersPlatform.instance;
 
   test('$MethodChannelAvailableVideoPlayers is the default instance', () {
     expect(initialPlatform, isInstanceOf<MethodChannelAvailableVideoPlayers>());
@@ -21,7 +21,8 @@ void main() {
 
   test('getPlatformVersion', () async {
     AvailableVideoPlayers availableVideoPlayersPlugin = AvailableVideoPlayers();
-    MockAvailableVideoPlayersPlatform fakePlatform = MockAvailableVideoPlayersPlatform();
+    MockAvailableVideoPlayersPlatform fakePlatform =
+        MockAvailableVideoPlayersPlatform();
     AvailableVideoPlayersPlatform.instance = fakePlatform;
 
     expect(await availableVideoPlayersPlugin.getPlatformVersion(), '42');

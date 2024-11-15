@@ -61,7 +61,6 @@ class _VideoPlayersScreenState extends State<VideoPlayersScreen> {
               final videoPlayer = videoPlayers[index];
 
               return ListTile(
-             
                 title: Text(videoPlayer.appName),
                 subtitle: Text(videoPlayer.packageName),
               );

@@ -8,7 +8,8 @@ abstract class AvailableVideoPlayersPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static AvailableVideoPlayersPlatform _instance = MethodChannelAvailableVideoPlayers();
+  static AvailableVideoPlayersPlatform _instance =
+      MethodChannelAvailableVideoPlayers();
 
   /// The default instance of [AvailableVideoPlayersPlatform] to use.
   ///
