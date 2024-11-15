@@ -1,16 +1,13 @@
-Here’s the content ready to paste into your README.md file:
 
-markdown
-Copy code
 # available_video_players
 
-A Flutter plugin to list all installed video player applications on Android devices. This package provides a simple API to retrieve the names and package identifiers of all video player apps installed on the device.
+A Flutter plugin to retrieve all installed video player apps on Android, designed for seamless integration in Flutter applications. This plugin currently supports **retrieving installed video players on Android** only.
 
 ## Features
 
-- Retrieve all installed video player applications
-- Provides app name and package name
-- Lightweight and easy to integrate
+- Retrieve a list of installed video player apps on Android
+- Get app names and package names of installed video players
+- Simple API to access installed video player data
 
 ## Installation
 
@@ -19,49 +16,62 @@ Add `available_video_players` as a dependency in your `pubspec.yaml` file:
 ```yaml
 dependencies:
   available_video_players: <latest version>
+```
+
+If you are working on the plugin directly or planning to install it from GitHub before publishing to pub.dev, you can add it like this:
+
+```yaml
+dependencies:
+  available_video_players:
+    git:
+      url: https://github.com/yourusername/available_video_players.git
+```
+
 Then, run:
 
-bash
-Copy code
+```bash
 flutter pub get
-Usage
-1. Import the Plugin
-In your Dart code, import the available_video_players package:
+```
 
-dart
-Copy code
-import 'package:available_video_players/available_video_players.dart';
-2. Fetch Installed Video Players
-Use the AvailableVideoPlayers.getInstalledVideoPlayers method to retrieve the list of installed video player applications:
+## Usage
 
-dart
-Copy code
-final players = await AvailableVideoPlayers.getInstalledVideoPlayers();
+1. **Import the Plugin**  
+   In your Dart code, import the `available_video_players` package:
 
-for (var player in players) {
-  print('App Name: ${player.appName}, Package Name: ${player.packageName}');
-}
-Example Output
-yaml
-Copy code
-App Name: VLC for Android, Package Name: org.videolan.vlc
-App Name: MX Player, Package Name: com.mxtech.videoplayer.ad
-Platform-Specific Implementation
-This plugin is currently supported only on Android. Ensure you have the necessary configurations in your Android project.
+   ```dart
+   import 'package:available_video_players/available_video_players.dart';
+   ```
 
-Permissions
-Make sure your Android app has the necessary permissions in the AndroidManifest.xml file:
+2. **Get Installed Video Players**  
+   Use the `getInstalledVideoPlayers` method to get a list of installed video player apps on the device.
 
-xml
-Copy code
-<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
-Add this line in the <application> tag to avoid runtime errors:
+   ```dart
+   List<VideoPlayerApp> videoPlayers = await AvailableVideoPlayers.getInstalledVideoPlayers();
+   videoPlayers.forEach((app) {
+     print('App Name: ${app.appName}');
+     print('Package Name: ${app.packageName}');
+   });
+   ```
 
-xml
-Copy code
-<meta-data android:name="flutterEmbedding" android:value="2" />
-Notes
-This plugin does not provide the app icons or logos, focusing purely on retrieving app names and package names.
-It uses Android's PackageManager API to fetch the information.
-License
+## Permissions
+
+Ensure your Android application has the necessary permissions:
+
+1. Open `android/app/src/main/AndroidManifest.xml`.
+2. Add the following permissions to access installed apps:
+
+```xml
+<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+```
+
+This permission is required to list installed apps on Android 11 and higher.
+
+## Notes
+
+- This plugin works on Android only.
+- The list of installed video players is retrieved based on the apps' package names.
+- This plugin does not provide icons for the apps, only their names and package names.
+
+## License
+
 MIT License. See LICENSE file for details.
