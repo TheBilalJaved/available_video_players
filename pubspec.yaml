@@ -1,11 +1,11 @@
 name: available_video_players
-description: "A new Flutter plugin project."
+description: A Flutter plugin for Android to retrieve a list of installed video player applications. This plugin allows developers to identify video players on a device, providing their app names and package names.
 version: 1.0.0
 homepage:
 
 environment:
   sdk: ^3.5.4
-  flutter: '>=3.3.0'
+  flutter: ">=3.3.0"
 
 dependencies:
   flutter:
