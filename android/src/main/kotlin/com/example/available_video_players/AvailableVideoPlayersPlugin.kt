@@ -10,6 +10,7 @@ import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import android.content.pm.ResolveInfo
 import android.content.Context
+import android.content.pm.ApplicationInfo
 
 /** AvailableVideoPlayersPlugin */
 class AvailableVideoPlayersPlugin: FlutterPlugin, MethodCallHandler {
@@ -41,22 +42,30 @@ class AvailableVideoPlayersPlugin: FlutterPlugin, MethodCallHandler {
         val packageManager = context.packageManager
         val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
         intent.setType("video/*")
-        val installedApps: List<ResolveInfo> = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        val videoPlayers = mutableListOf<Map<String, Any>>()
 
-        for (app in installedApps) {
-            val appName = app.loadLabel(packageManager).toString()
-            val packageName = app.activityInfo.packageName
+        // Query all apps that can handle this intent
+        val playerList: List<ResolveInfo> = packageManager.queryIntentActivities(intent, 0)
+        val appInfos: MutableList<Map<String, String>> = mutableListOf()
 
-            // Add the app details to the list without the icon
-            videoPlayers.add(
-                mapOf(
+
+        for (resolveInfo in playerList) {
+            try {
+                val applicationInfo: ApplicationInfo =
+                    packageManager.getApplicationInfo(resolveInfo.activityInfo.packageName, 0)
+                val appName: String = packageManager.getApplicationLabel(applicationInfo).toString()
+                val packageName: String = applicationInfo.packageName
+
+                val appInfo: Map<String, String> = mapOf(
                     "appName" to appName,
                     "packageName" to packageName
                 )
-            )
+                appInfos.add(appInfo)
+            } catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
+            }
         }
-        return videoPlayers
+
+        return appInfos
     }
 
     // onDetachedFromEngine is called when the plugin is removed from the engine

@@ -53,19 +53,6 @@ flutter pub get
    });
    ```
 
-## Permissions
-
-Ensure your Android application has the necessary permissions:
-
-1. Open `android/app/src/main/AndroidManifest.xml`.
-2. Add the following permissions to access installed apps:
-
-```xml
-<uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
-```
-
-This permission is required to list installed apps on Android 11 and higher.
-
 ## Notes
 
 - This plugin works on Android only.
